@@ -1,17 +1,38 @@
-// Update this page (the content is just a fallback if you fail and example)
-// Use chakra-ui
-import { Container, Text, VStack } from "@chakra-ui/react";
-
-// Example of using react-icons
-// import { FaRocket } from "react-icons/fa";
-// <IconButton aria-label="Add" icon={<FaRocket />} size="lg" />; // IconButton would also have to be imported from chakra
+import { Container, VStack, Input, Button, Text, Box, Heading, List, ListItem, ListIcon, useMediaQuery } from "@chakra-ui/react";
+import { FaSnowflake } from "react-icons/fa";
+import { useState } from "react";
 
 const Index = () => {
+  const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
+  const [search, setSearch] = useState("");
+  const [resorts, setResorts] = useState([]);
+
+  const handleSearch = () => {
+    // Placeholder for search functionality
+    setResorts(["Ski Resort 1", "Ski Resort 2", "Ski Resort 3"]);
+  };
+
   return (
-    <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
-      <VStack spacing={4}>
-        <Text fontSize="2xl">Your Blank Canvas</Text>
-        <Text>Chat with the agent to start making edits.</Text>
+    <Container maxW="container.xl" p={4}>
+      <VStack spacing={8}>
+        <Box w="full" p={4} bg="blue.500" color="white">
+          <Heading size={isLargerThan768 ? "2xl" : "lg"}>Discover Ski Resorts in Sweden</Heading>
+        </Box>
+        <Input
+          placeholder="Enter a location"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          size="lg"
+        />
+        <Button colorScheme="blue" onClick={handleSearch}>Search</Button>
+        <List spacing={3}>
+          {resorts.map((resort, index) => (
+            <ListItem key={index}>
+              <ListIcon as={FaSnowflake} color="blue.500" />
+              {resort}
+            </ListItem>
+          ))}
+        </List>
       </VStack>
     </Container>
   );
